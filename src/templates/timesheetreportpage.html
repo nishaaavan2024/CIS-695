@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    </style>    
+    <title>TimeSheet Report</title>
+</head>
+<body>
+    <h1 style="text-align: center; color:#069;border-bottom: 8px solid #069;">TimeSheet Report</h1>
+	<p>
+	 <!--a href="{{ url_for('index') }}">Go to Home</a-->
+	 <button style="background-color: #04AA6D;;" id="home" type="button" onclick="window.location.href = '{{ url_for('index') }}' ; " class="button">Go to Home</button>
+    <form action="/searchtimesheet" method="POST">
+	    <label for="reportdate">Report Date:</label>
+        <input type="datetime-local" id="datetimelocal" name="datetimelocal">
+		<label for="name">User Name:</label>
+		 <select name="select_list">
+            <option value="" {% if defaultuserfilter is none %}selected{% endif %}>Select an option...</option>
+            {% for value in userdata %}
+                <option value="{{ value }}">{{ value[1] + ' - ' + value[3] + ' ' + value[4]  }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Time Sheet:</h2>    
+	<table>
+       <tr>
+         <th>UserName</th>
+         <th>Employee ID</th>
+         <th>Start Date Time</th>
+	     <th>End Date Time</th>
+		 <th>Hours</th>
+		 <th>Break(Minutes)</th>
+       </tr> 
+        {% for row in timesheetdata %}
+		<tr>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+	      <td>{{ row[4] }}</td>
+		  <td>{{ row[5] }}</td>
+		  <td>{{ row[6] }}</td>
+        </tr>
+		{% endfor %}
+    </table>        
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>    
+    <title>User Management</title>
+</head>
+<body>
+    <h1 style="text-align: center; color:#069;border-bottom: 8px solid #069;">Timesheet Import</h1>
+	<p>
+	 <!--a href="{{ url_for('index') }}">Go to Home</a-->
+	 <button style="background-color: #04AA6D;" id="home" type="button" onclick="window.location.href = '{{ url_for('index') }}' ; " class="button">Go to Home</button>
+	 <p>
+	 <br>
+	
+	{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form action="/addtimesheet" method="POST" enctype="multipart/form-data">
+	    <label for="name">Browse TimeSheet Load File</label>
+        <input type="file" id="timesheetimportfile" name="timesheetimportfile" accept=".csv">
+        <button type="submit">Upload Timesheet</button>
+    </form>       
+</body>
+</html>
